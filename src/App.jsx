@@ -126,10 +126,13 @@ export default function App() {
             visits={state.visits}
             muted={state.muted}
             onDiscover={(id) => {
-                  dispatch({ type: "FIRE_BEAT", id: "J2" });
-                  sound.duck(2400);
-                  setTimeout(() => { setScare("J2"); sound.sting("low"); }, 2000);
-            }
+              dispatch({ type: "DISCOVER_CLUE", id });
+              if (id === "U3" && state.visits.shrine >= 3 && !state.firedBeats.includes("J2")) {
+                dispatch({ type: "FIRE_BEAT", id: "J2" });
+                sound.duck(2400);
+                setTimeout(() => { setScare("J2"); sound.sting("low"); }, 2000);
+              }
+            }}
             onCloseClue={(clueId) => {
               if (
                 clueId === "E2" &&
