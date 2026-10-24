@@ -41,7 +41,7 @@ export const CLUES = {
     essential: true,
     label: "The 1978 film",
     source: "Okabe’s note on the 1978 film",
-    text: "“The priest bows before anything else. His daughter speaks the name only after the offering has left her hands.”",
+    text: "The officiant bows before anything else. The child speaks the name only after the offering has left their hands.”",
   },
   E3: {
     id: "E3",
@@ -102,8 +102,8 @@ export const JOURNAL_LINES = {
     you: "You play the tape. Hayashi lists four acts and admits he never learned the order.",
   },
   E2: {
-    third: "The researcher reads Okabe’s note on the 1978 film: the priest bows first, and the name comes after the offering.",
-    you: "You read Okabe’s note on the 1978 film: the priest bows first, and the name comes after the offering.",
+    third: "The researcher reads Okabe’s note on the 1978 film: the officiant bows first, and the name comes after the offering.",
+    you: "You read Okabe’s note on the 1978 film: the officiant bows first, and the name comes after the offering.",
   },
   E3: {
     third: "The researcher copies the inscription from the stone: the hands call before the hands give.",

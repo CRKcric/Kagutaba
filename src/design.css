@@ -20,6 +20,7 @@
   text-shadow:0 0 6px rgba(200,230,170,.75);filter:blur(.4px)}
 
 /* clue card uses the real images */
+.card .glitch{margin:6px 0 0;font-family:var(--mono);letter-spacing:.3em;font-size:.8rem;color:#7b2b27;text-shadow:0 0 6px rgba(123,43,39,.5)}
 .card .hair{width:230px;height:auto;left:24px;top:8px}
 .card .stain{background:none;border-radius:0;width:250px;height:auto;right:-50px;bottom:-60px}
 /* Uncomment when public/images/paper.png exists:
@@ -47,3 +48,12 @@
 .e-big{position:relative;z-index:1}
 
 @media (prefers-reduced-motion:reduce){.e-seal.on{animation:none}.e-ghost.on{transition-duration:1s}}
+
+.e-stage,.e-stage2{pointer-events:none}
+.e-btn{pointer-events:none}
+.e-btn.on{pointer-events:auto}
+.e-stage.gone .e-btn{pointer-events:none}
+.e-lossface{position:absolute;height:100vh;width:auto;max-width:100vw;object-fit:contain;opacity:0;pointer-events:none;transition:opacity .35s}
+.e-lossface.on{opacity:1}
+.gentle .e-lossface.on{opacity:.7;transition:opacity 1.6s}
+.subtitle{position:fixed;left:0;right:0;bottom:12vh;margin:0;text-align:center;color:#e8f0dc;font-size:clamp(1rem,3.5vw,1.4rem);text-shadow:0 0 8px #000;pointer-events:none;z-index:10}

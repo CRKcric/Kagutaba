@@ -1,16 +1,21 @@
-# React + Vite
+# KAGUTABA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A 2D browser psychological-horror escape game made for a Halloween hackathon.
+You are a researcher going through a missing journalist's tapes and notes.
+Collect clues, work out the ritual, and perform it.
 
-Currently, two official plugins are available:
+**Play:** [add live link]
+Quick demo: add `?demo=1` to the link.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Trigger warning:** horror, sudden loud sounds and frightening imagery.
+Gentle Mode (top bar) turns scares into slow fades. Fully playable with sound off.
+No webcam, microphone or location is used.
 
-## React Compiler
+## Run locally
+npm install
+npm run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Credits
+Inspired by Noroi: The Curse (2005), directed by Kōji Shiraishi.
+Design and art by Hrithika. Development by Krishna.
+Images generated with ChatGPT. Sound effects and voices generated with ElevenLabs.

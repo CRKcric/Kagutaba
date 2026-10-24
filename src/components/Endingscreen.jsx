@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ASSETS } from "../data/assets";
 import { END_CREDIT_LINES } from "../data/credits";
+import * as sound from "../audio/sound";
 
 // Props: { status: "won" | "lost", onRestart() }
 // Mount this when state.status is "won" or "lost". It runs itself with timers.
@@ -8,28 +9,38 @@ import { END_CREDIT_LINES } from "../data/credits";
 const ORDER = ["start", "seal", "sealout", "l1", "l2", "exit", "dark", "came", "ghost", "cut", "name", "end"];
 const WON = [["seal", 200], ["sealout", 3500], ["l1", 4600], ["l2", 8600], ["exit", 10600]];
 const AFTER = [["dark", 0], ["came", 1800], ["ghost", 4600], ["cut", 11800], ["name", 13200], ["end", 17200]];
+const LOST = [["face", 30], ["text", 1100], ["end", 3600]];
+const LOST_ORDER = ["start", "face", "text", "end"];
 
-export default function EndingScreen({ status, onRestart }) {
+export default function EndingScreen({ status, gentleMode, onRestart }) {
   const [phase, setPhase] = useState("start");
   const timers = useRef([]);
   const run = (steps) => steps.forEach(([p, ms]) => timers.current.push(setTimeout(() => setPhase(p), ms)));
 
   useEffect(() => {
-    run(status === "won" ? WON : [["end", 2500]]);
+    run(status === "won" ? WON : LOST);
     const t = timers.current;
     return () => t.forEach(clearTimeout);
   }, [status]);
+  
+  useEffect(() => {
+    if (phase !== "ghost") return;
+    const t = setTimeout(() => sound.breath(), 5800);
+    return () => clearTimeout(t);
+  }, [phase]);
 
   const at = (p) => ORDER.indexOf(phase) >= ORDER.indexOf(p);
 
   if (status === "lost") {
-    return (
-      <div className="ending">
-        <p className="e-line on">THE TAPE ENDS.</p>
-        <button className={"e-btn" + (at("end") ? " on" : "")} onClick={onRestart}>Begin again</button>
-      </div>
-    );
-  }
+  const lostAt = (p) => LOST_ORDER.indexOf(phase) >= LOST_ORDER.indexOf(p);
+  return (
+    <div className={"ending" + (gentleMode ? " gentle" : "")}>
+      <img className={"e-lossface" + (phase === "face" ? " on" : "")} src={ASSETS.face.src} alt="" />
+      <p className={"e-line" + (lostAt("text") ? " on" : "")}>THE TAPE ENDS.</p>
+      <button className={"e-btn" + (lostAt("end") ? " on" : "")} onClick={onRestart}>Begin again</button>
+    </div>
+  );
+}
 
   return (
     <div className="ending" data-phase={phase}>

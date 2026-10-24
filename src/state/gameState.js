@@ -12,6 +12,7 @@ export const initialState = {
   clueReads: {}, // { U1: 2, ... }
   tapeCounter: 0, // 0..10
   wrongAttempts: 0,
+  repeatedWrong: false,
   lastWrongAnswer: null,
   ritualSlots: [null, null, null, null],
   firedBeats: [], // ["B2", "J1", ...], each fires once
@@ -114,12 +115,15 @@ export function reducer(state, action) {
         tapeCounter,
         wrongAttempts: state.wrongAttempts + 1,
         lastWrongAnswer: answer,
+        repeatedWrong: state.repeatedWrong || state.lastWrongAnswer === answer,
         ritualSlots: [null, null, null, null],
         ...(lost ? { screen: "lost", status: "lost" } : {}),
       };
     }
+    case "ADD_TAPE":
+      return { ...state, tapeCounter: Math.min(10, state.tapeCounter + action.amount) };
     
-    case "RESTART":
+      case "RESTART":
       return {
         ...getInitialState(),
         gentleMode: state.gentleMode,
