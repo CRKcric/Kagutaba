@@ -1,0 +1,49 @@
+/* Design layer. Loaded after styles.css, so it wins. Cold palette is the default. */
+:root{--char:#161a19;--char2:#202625;--ink:#0a0d0c;--dim:#7f8a84;--sick:#8a9a5b}
+.bar{background:rgba(22,26,25,.94)}
+.start{background:radial-gradient(ellipse at 50% 30%,#1f2928,var(--ink) 75%)}
+.journal{background:#0f1413}
+.credit{max-width:46ch;margin:22px auto 0;font-size:.78rem;color:var(--dim)}
+
+/* the base rule the jumpscare overlay was missing */
+.scare{position:fixed;inset:0;z-index:20;background:#000;display:grid;place-items:center;pointer-events:none}
+
+/* scene layers, bottom to top: image, ghost (1), vignette (2), flashlight (3), timestamp (4), grain (5) */
+.scene{touch-action:pan-y}
+.scene::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.65) 100%)}
+.flash{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(circle at var(--lx,50%) var(--ly,45%),transparent 0,transparent 90px,rgba(0,0,0,.84) 260px)}
+.vhs-fx::after{z-index:5}
+.stamp{position:absolute;inset:10px 14px auto;z-index:4;display:flex;justify-content:space-between;pointer-events:none;
+  font:clamp(.65rem,2.2vw,.95rem) var(--mono);letter-spacing:.08em;color:#e8f0dc;
+  text-shadow:0 0 6px rgba(200,230,170,.75);filter:blur(.4px)}
+
+/* clue card uses the real images */
+.card .hair{width:230px;height:auto;left:24px;top:8px}
+.card .stain{background:none;border-radius:0;width:250px;height:auto;right:-50px;bottom:-60px}
+/* Uncomment when public/images/paper.png exists:
+.card{background-image:url("/images/paper.png");background-size:cover;background-blend-mode:multiply} */
+
+/* ritual tiles with icons */
+.slot,.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.tile{height:auto;min-height:92px;padding:6px 10px}
+.ico{width:46px;height:46px;object-fit:contain;pointer-events:none}
+
+/* ending */
+.ending{position:fixed;inset:0;z-index:30;background:#000;display:grid;place-items:center;text-align:center;color:var(--bone);font-family:var(--serif)}
+.e-stage,.e-stage2{grid-area:1/1;display:grid;place-items:center;gap:18px;padding:24px}
+.e-stage.gone{opacity:0;pointer-events:none;transition:opacity 1.5s}
+.e-seal{width:min(60vw,340px);mix-blend-mode:screen;opacity:0;transition:opacity 1.5s}
+.e-seal.on{opacity:1;animation:slowturn 4s linear}
+@keyframes slowturn{to{transform:rotate(100deg)}}
+.e-line,.e-btn,.credit{opacity:0;transition:opacity 1.2s}
+.e-line{margin:0;font-size:clamp(1.1rem,4vw,1.9rem);letter-spacing:.2em}
+.e-name{font-size:clamp(2rem,8vw,4.5rem);text-shadow:0 0 24px rgba(123,43,39,.6)}
+.e-line.on,.e-btn.on,.credit.on{opacity:1}
+.e-btn{letter-spacing:.2em}
+.e-ghost{position:absolute;height:90vh;width:auto;filter:invert(1);mix-blend-mode:screen;opacity:0;transition:opacity .15s}
+.e-ghost.on{opacity:.7;transition:opacity 7s ease-in}
+.e-big{position:relative;z-index:1}
+
+@media (prefers-reduced-motion:reduce){.e-seal.on{animation:none}.e-ghost.on{transition-duration:1s}}

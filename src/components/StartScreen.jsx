@@ -14,6 +14,7 @@ export default function StartScreen({ gentleMode, onToggleGentle, onStart }) {
       <div>
         <button className="go" type="button" onClick={onStart}>Begin the tapes</button>
       </div>
+      <p className="credit">Inspired by Noroi: The Curse (2005), directed by Kōji Shiraishi. All art, text and sound here are original.</p>
     </section>
   );
 }

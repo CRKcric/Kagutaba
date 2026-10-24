@@ -1,3 +1,16 @@
+import { ASSETS, blendStyle } from "../data/assets";
+
+// Ink icon above the word. Icons are black on white, so they multiply onto the paper tile.
+function Glyph({ name }) {
+  const a = ASSETS.icons[name.toLowerCase()];
+  return (
+    <>
+      <img className="ico" src={a.src} style={blendStyle(a)} alt="" draggable="false" />
+      <span>{name}</span>
+    </>
+  );
+}
+
 // Props: { slots: (string|null)[4], onPlace(index, name), onRemove(index), onSubmit() }
 // Drag a tile into a slot. Tap/Enter on a tile fills the first empty slot, tap/Enter on a filled slot removes it.
 // Checking the order is not done here: read state.ritualSlots in onSubmit.
@@ -59,7 +72,7 @@ export default function RitualPuzzle({ slots, onPlace, onRemove, onSubmit }) {
               onClick={place}
               onKeyDown={(e) => onKey(e, place)}
             >
-              {name}
+              <Glyph name={name} />
             </div>
           );
         })}

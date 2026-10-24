@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CLUES, getClueText } from "../data/clues";
 import { SceneBackground } from "./art";
 import GhostFigure from "./GhostFigure";
+import Timestamp from "./Timestamp";
 import ClueCard from "./ClueCard";
 
 // Props: { location, visits, onDiscover(clueId), onCloseClue(clueId), onBack() }
@@ -13,13 +14,22 @@ export default function LocationView({ location, visits, onDiscover, onCloseClue
 
   const clue = openId ? CLUES[openId] : null;
 
+  // Flashlight: the light circle follows the pointer. Clues are outside the scene, so they stay readable.
+  const light = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--lx", e.clientX - r.left + "px");
+    e.currentTarget.style.setProperty("--ly", e.clientY - r.top + "px");
+  };
+
   return (
     <section className="location">
       <h2>{location.name}</h2>
 
-      <figure className="scene vhs-fx" data-loc={location.id}>
+      <figure className="scene vhs-fx" data-loc={location.id} onPointerMove={light}>
         <SceneBackground id={location.id} />
         <GhostFigure visits={visits[location.id]} />
+        <div className="flash" aria-hidden="true" />
+        <Timestamp location={location.id} visit={visits[location.id]} />
       </figure>
       <p className="hint">{location.blurb}</p>
 
