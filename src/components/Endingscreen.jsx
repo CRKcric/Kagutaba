@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ASSETS } from "../data/assets";
+import { END_CREDIT_LINES } from "../data/credits";
 
 // Props: { status: "won" | "lost", onRestart() }
 // Mount this when state.status is "won" or "lost". It runs itself with timers.
@@ -7,8 +8,6 @@ import { ASSETS } from "../data/assets";
 const ORDER = ["start", "seal", "sealout", "l1", "l2", "exit", "dark", "came", "ghost", "cut", "name", "end"];
 const WON = [["seal", 200], ["sealout", 3500], ["l1", 4600], ["l2", 8600], ["exit", 10600]];
 const AFTER = [["dark", 0], ["came", 1800], ["ghost", 4600], ["cut", 11800], ["name", 13200], ["end", 17200]];
-
-const CREDIT = "Inspired by Noroi: The Curse (2005), directed by Kōji Shiraishi. All art, text and sound here are original.";
 
 export default function EndingScreen({ status, onRestart }) {
   const [phase, setPhase] = useState("start");
@@ -51,7 +50,9 @@ export default function EndingScreen({ status, onRestart }) {
         <p className={"e-line e-big" + (at("came") && !at("cut") ? " on" : "")}>Something came with you.</p>
         <p className={"e-line e-name" + (at("name") ? " on" : "")}>KAGUTABA.</p>
         <button className={"e-btn" + (at("end") ? " on" : "")} onClick={onRestart}>Begin again</button>
-        <p className={"credit" + (at("end") ? " on" : "")}>{CREDIT}</p>
+        <div className={"credit" + (at("end") ? " on" : "")}>
+         {END_CREDIT_LINES.map((l) => <p key={l}>{l}</p>)}
+        </div>
       </div>
     </div>
   );

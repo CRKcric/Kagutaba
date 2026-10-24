@@ -10,6 +10,7 @@ import EvidenceJournal from "./components/EvidenceJournal";
 import RitualPuzzle from "./components/RitualPuzzle";
 import TapeCounter from "./components/TapeCounter";
 import ScareOverlay from "./components/ScareOverlay";
+import EndingScreen from "./components/EndingScreen";
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, undefined, getInitialState);
@@ -105,17 +106,17 @@ export default function App() {
               slots={state.ritualSlots}
               onPlace={(index, name) => dispatch({ type: "PLACE_TILE", index, name })}
               onRemove={(index) => dispatch({ type: "REMOVE_TILE", index })}
-              onSubmit={() => {
-                /* TODO: compare state.ritualSlots with CORRECT_ORDER */
-              }}
+              onSubmit={() => dispatch({ type: "SUBMIT_RITUAL" })}}
             />
             <button className="back" onClick={toMap}>Back to the village</button>
           </section>
         )}
 
-        {screen !== "start" && <TapeCounter value={state.tapeCounter} />}
+        {screen !== "start" && screen !== "ending" && screen !== "lost" && <TapeCounter value={state.tapeCounter} />}
       </main>
-
+      {(screen === "ending" || screen === "lost") && (
+        <EndingScreen status={state.status} onRestart={() => dispatch({ type: "RESTART" })} />
+      )}
       <ScareOverlay scare={scare} gentleMode={state.gentleMode} onDone={() => setScare(null)} />
     </>
   );

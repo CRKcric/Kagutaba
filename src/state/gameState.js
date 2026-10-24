@@ -101,6 +101,24 @@ export function reducer(state, action) {
       return { ...state, ritualSlots: slots };
     }
     
+        case "SUBMIT_RITUAL": {
+      if (state.ritualSlots.includes(null)) return state;
+      const answer = state.ritualSlots.join(",");
+      if (answer === CORRECT_ORDER.join(",")) {
+        return { ...state, screen: "ending", status: "won" };
+      }
+      const tapeCounter = Math.min(10, state.tapeCounter + 2);
+      const lost = tapeCounter >= 10;
+      return {
+        ...state,
+        tapeCounter,
+        wrongAttempts: state.wrongAttempts + 1,
+        lastWrongAnswer: answer,
+        ritualSlots: [null, null, null, null],
+        ...(lost ? { screen: "lost", status: "lost" } : {}),
+      };
+    }
+    
     case "RESTART":
       return {
         ...getInitialState(),
