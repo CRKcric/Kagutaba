@@ -72,8 +72,8 @@ button:focus-visible,input:focus-visible,[role=button]:focus-visible{outline:2px
 .card{position:relative;background:var(--paper);color:#241f1a;padding:22px 24px;border-radius:2px;overflow:hidden;
   box-shadow:0 10px 30px rgba(0,0,0,.55);transform:rotate(-.6deg);margin:1rem 0}
 .card h3{font-size:1.1rem;margin-bottom:8px}
-.card small{display:block;color:#6b6252;margin-bottom:10px}
-.card p{margin:0 0 1rem}
+.card small{display:block;color:#3a1914;margin-bottom:10px}
+.card p{margin:0 0 1rem}q
 .stain{position:absolute;right:-30px;bottom:-30px;width:210px;height:210px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(40,16,10,.8) 0,rgba(70,28,20,.55) 45%,transparent 70%);
   transform:scale(.02);transition:transform 9s cubic-bezier(.2,.7,.3,1);mix-blend-mode:multiply}

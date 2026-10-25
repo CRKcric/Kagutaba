@@ -29,6 +29,13 @@ export default function EndingScreen({ status, gentleMode, onRestart }) {
     return () => clearTimeout(t);
   }, [phase]);
 
+  // whisper "kagutaba" just as the word fades in
+    useEffect(() => {
+    if (phase !== "name") return;
+    const t = setTimeout(() => sound.voice("voWhisper", gentleMode ? 0.5 : 0.9), 400);
+    return () => clearTimeout(t);
+    }, [phase]);
+
   const at = (p) => ORDER.indexOf(phase) >= ORDER.indexOf(p);
 
   if (status === "lost") {
