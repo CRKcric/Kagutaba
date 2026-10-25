@@ -134,6 +134,10 @@ export default function App() {
                 setTimeout(() => { setScare("J2"); sound.sting("low"); }, 2000);
               }
             }}
+            if (clueId === "E3" && !state.firedBeats.includes("K1")) {
+              dispatch({ type: "FIRE_BEAT", id: "K1" });
+              setTimeout(() => sound.sting("knock", 0.5), 3000);
+            }
             onCloseClue={(clueId) => {
               if (
                 clueId === "E2" &&

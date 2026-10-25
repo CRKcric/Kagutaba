@@ -66,11 +66,11 @@ export function setGentle(g) {
 }
 
 // name: "knock" | "sharp" | "low"
-export function sting(name) {
+export function sting(name, volume = 0.9) {
   const a = els[name];
   if (!unlocked || muted || !a) return;
   a.currentTime = 0;
-  a.volume = gentle ? 0.3 : 0.9;
+  a.volume = gentle ? Math.min(volume, 0.3) : volume;
   a.play().catch(() => {});
 }
 
