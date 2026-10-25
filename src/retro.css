@@ -1,0 +1,19 @@
+/* Retro layer: everything typewriter, bold headings, typed-text styles. Loaded last. */
+:root{
+  --head:"Special Elite","Courier New",monospace;   /* headings, buttons, labels */
+  --serif:var(--head);                              /* all other text */
+}
+body{font-size:17px;letter-spacing:.01em}
+
+/* bold: room names, clue headings, clue buttons, location buttons */
+h1,h2,h3,.place-name,.clue-btn{font-weight:700}
+h2{letter-spacing:.04em}
+.card h3{font-size:1.3rem;text-transform:uppercase;letter-spacing:.06em}
+
+/* typed text */
+.typed{cursor:pointer}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.caret{position:relative;display:inline-block;width:0}
+.caret::after{content:"";position:absolute;left:1px;bottom:.12em;width:.55em;height:1em;background:currentColor;animation:caretblink 1s steps(1) infinite}
+@keyframes caretblink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.caret::after{animation:none}}

@@ -5,11 +5,13 @@ import { SceneBackground } from "./art";
 import GhostFigure from "./GhostFigure";
 import Timestamp from "./Timestamp";
 import ClueCard from "./ClueCard";
+import { VO_CUES } from "../data/voCues";
 
 // Props: { location, visits, onDiscover(clueId), onCloseClue(clueId), onBack() }
 export default function LocationView({ location, visits, muted, onDiscover, onCloseClue, onBack }) {
   const [openId, setOpenId] = useState(null);
   const [caption, setCaption] = useState(null);
+  const [typing, setTyping] = useState(null); // { id, clock } while a voiced clue types in
   const timers = useRef([]);
 
   const later = (fn, ms) => timers.current.push(setTimeout(fn, ms));
@@ -45,12 +47,26 @@ export default function LocationView({ location, visits, muted, onDiscover, onCl
       const main = sound.voice("voE1", 0.9);
       if (main) main.onended = () => later(whisper, 600);
       else later(whisper, 2500);
+      return main;
     }
-    if (id === "E2" && location.id === "archive") sound.voice("voE2", 0.9);
+    if (id === "E2" && location.id === "archive") return sound.voice("voE2", 0.9);
+    return null;
   };
 
-  const open = (id) => { setOpenId(id); onDiscover(id); playVoices(id); };
-  const close = () => { onCloseClue?.(openId); setOpenId(null); stopAll(); };
+  const open = (id) => {
+    setOpenId(id);
+    onDiscover(id);
+    const audio = playVoices(id);
+    // Voiced clues type in with the voice. Muted: the same timing runs from a clock.
+    const voiced = VO_CUES[id] && ((id === "E1" && location.id === "house") || (id === "E2" && location.id === "archive"));
+    if (voiced) {
+      const t0 = performance.now();
+      setTyping({ id, clock: () => (audio && !audio.paused ? audio.currentTime : (performance.now() - t0) / 1000) });
+    } else {
+      setTyping(null);
+    }
+  };
+  const close = () => { onCloseClue?.(openId); setOpenId(null); setTyping(null); stopAll(); };
   const clue = openId ? CLUES[openId] : null;
 
   // Flashlight: the light circle follows the pointer. Clues are outside the scene, so they stay readable.
@@ -58,6 +74,7 @@ export default function LocationView({ location, visits, muted, onDiscover, onCl
     const r = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--lx", e.clientX - r.left + "px");
     e.currentTarget.style.setProperty("--ly", e.clientY - r.top + "px");
+    // depth: pointer position from -1 to 1, used by depth.css for parallax
     e.currentTarget.style.setProperty("--px", ((e.clientX - r.left) / r.width - 0.5) * 2);
     e.currentTarget.style.setProperty("--py", ((e.clientY - r.top) / r.height - 0.5) * 2);
   };
@@ -81,6 +98,7 @@ export default function LocationView({ location, visits, muted, onDiscover, onCl
           locationName={location.name}
           wet={clue.id === "E2"}
           glitch={clue.id === "E1" && muted}
+          typing={typing && typing.id === clue.id ? typing : null}
           onClose={close}
         />
       ) : (

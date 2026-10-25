@@ -4,6 +4,7 @@ import './styles.css'
 import './design.css'
 import './vintage.css'
 import './depth.css'
+import './retro.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
