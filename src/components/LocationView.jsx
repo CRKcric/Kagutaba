@@ -58,6 +58,8 @@ export default function LocationView({ location, visits, muted, onDiscover, onCl
     const r = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--lx", e.clientX - r.left + "px");
     e.currentTarget.style.setProperty("--ly", e.clientY - r.top + "px");
+    e.currentTarget.style.setProperty("--px", ((e.clientX - r.left) / r.width - 0.5) * 2);
+    e.currentTarget.style.setProperty("--py", ((e.clientY - r.top) / r.height - 0.5) * 2);
   };
 
   return (

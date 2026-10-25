@@ -1,0 +1,80 @@
+/* Look layer: fonts, start-screen title, paper boxes. Loaded last, so it wins. */
+
+/* fonts, self-hosted from /public/fonts */
+@font-face{font-family:"IM Fell English";src:url("/fonts/im-fell-english-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Special Elite";src:url("/fonts/special-elite-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"VT323";src:url("/fonts/vt323-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Caveat";src:url("/fonts/caveat-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Caveat";src:url("/fonts/caveat-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap}
+
+:root{
+  --head:"IM Fell English",Georgia,serif;          /* headings, buttons */
+  --type:"Special Elite","Courier New",monospace;  /* typed notes on the cards */
+  --hand:"Caveat","Segoe Script",cursive;          /* the journal */
+  --vcr:"VT323",ui-monospace,"Courier New",monospace; /* counter, timestamp, captions */
+  --mono:var(--vcr);
+  --ink-dark:#241f1a;
+  --title-blend:normal; /* try "screen" if title.png has a black background */
+  --paper-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05' numOctaves='4' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .42 0 0 0 0 .25 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  --paper-fold:linear-gradient(100deg,rgba(255,255,255,.2),transparent 30%,rgba(90,60,30,.14) 70%,transparent);
+}
+
+h1,h2,h3,button,.tog{font-family:var(--head)}
+button{font-size:1rem}
+h2{font-size:1.7rem}
+
+/* start screen */
+.title-img{margin:0 auto}
+.title-img img{display:block;margin:0 auto;width:min(30rem,88%);height:auto;mix-blend-mode:var(--title-blend)}
+.start h1:not(.title-img){font-family:var(--head)}
+.start .tagline{margin:-4px auto 10px;font-family:var(--vcr);font-size:clamp(1.3rem,4.5vw,1.9rem);
+  letter-spacing:.35em;padding-left:.35em;text-transform:uppercase;color:var(--bone);text-shadow:0 0 10px rgba(123,43,39,.65)}
+
+/* VCR-style readouts are smaller than the old mono, so scale them up */
+.count{font-size:3.4rem}
+.rec{font-size:1.1rem}
+.stamp{font-size:clamp(.95rem,3vw,1.35rem)}
+.card .glitch{font-size:1.1rem}
+.subtitle{font-family:var(--vcr);font-size:clamp(1.3rem,4.5vw,1.9rem)}
+
+/* paper boxes: your paper.png on top, a generated paper texture underneath as the fallback */
+.card,.place,.clue-btn,.tile,.journal{
+  background-color:var(--paper);
+  background-image:url("/images/paper.png"),var(--paper-noise),var(--paper-fold);
+  background-size:cover,200px 200px,100% 100%;
+  background-blend-mode:multiply,multiply,multiply;
+  color:var(--ink-dark);
+  border:1px solid #8a7a5c;
+  box-shadow:0 6px 16px rgba(0,0,0,.5);
+}
+.place,.clue-btn{font-family:var(--head)}
+.place-name{font-size:1.2rem;color:var(--ink-dark)}
+.place-blurb{font-family:var(--type);font-size:.85rem;color:#5e5444}
+.clue-btn{font-size:1.1rem}
+.place:hover,.clue-btn:hover{filter:brightness(1.08);border-color:var(--redhi)}
+.places li:nth-child(odd) .place{transform:rotate(-.5deg)}
+.places li:nth-child(even) .place{transform:rotate(.4deg)}
+
+.card h3{font-size:1.3rem}
+.card small,.card p{font-family:var(--type)}
+.card p{font-size:.98rem;line-height:1.7}
+.card small{color:#6b6252}
+
+.tile{font-family:var(--head);color:var(--ink-dark)}
+
+.journal{border-left:5px solid var(--red);transform:rotate(.3deg)}
+.journal p{font-family:var(--hand);font-weight:600;font-size:1.45rem;line-height:1.35;color:#2a231c}
+.journal .empty{color:#6b6252}
+
+/* paper: show the image itself, stretched to fill every box completely */
+.card,.place,.clue-btn,.tile,.journal{
+  background-image:url("/images/paper.png"),var(--paper-noise),var(--paper-fold);
+  background-size:100% 100%,200px 200px,100% 100%;
+  background-position:center;
+  background-repeat:no-repeat,repeat,no-repeat;
+  background-blend-mode:normal,multiply,multiply;
+}
+
+/* every remaining piece of text uses the old-book font too */
+:root{--serif:var(--head)}
+body{font-size:18px}

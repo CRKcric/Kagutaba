@@ -1,0 +1,27 @@
+/* Fake 3D: parallax + handheld sway + push-in. Loaded last. Timestamp, flashlight and vignette stay fixed. */
+
+/* --px / --py run from -1 to 1 and are set by LocationView from the pointer position */
+.scene>.bg{
+  scale:1.08;                                   /* overscan so edges never show */
+  translate:calc(var(--px,0)*-8px) calc(var(--py,0)*-5px);
+  transition:translate .3s ease-out;
+  animation:pushin 6s ease-out both, sway 9s ease-in-out infinite;
+}
+.scene>.ghost{
+  translate:calc(var(--px,0)*-16px) calc(var(--py,0)*-8px);   /* nearer to camera, so it moves more */
+  transition:transform 3.5s ease,opacity 3.5s ease,translate .3s ease-out;
+  animation:sway 9s ease-in-out infinite;
+}
+
+@keyframes pushin{from{scale:1}to{scale:1.08}}
+@keyframes sway{
+  0%,100%{rotate:-.25deg}
+  50%{rotate:.3deg}
+}
+
+/* motion off for Gentle Mode and reduced motion */
+.gentle .scene>.bg,.gentle .scene>.ghost{animation:none;translate:none;scale:1.04}
+@media (prefers-reduced-motion:reduce){
+  .scene>.bg,.scene>.ghost{animation:none;translate:none}
+  .scene>.bg{scale:1.04}
+}
