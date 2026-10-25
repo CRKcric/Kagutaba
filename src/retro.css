@@ -17,3 +17,32 @@ h2{letter-spacing:.04em}
 .caret::after{content:"";position:absolute;left:1px;bottom:.12em;width:.55em;height:1em;background:currentColor;animation:caretblink 1s steps(1) infinite}
 @keyframes caretblink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.caret::after{animation:none}}
+
+/* glowing eyes */
+.ghost.ghost-eyes{aspect-ratio:2/3;z-index:4;pointer-events:none}
+.ghost-eyes .eye{position:absolute;width:2.6%;aspect-ratio:1;border-radius:50%;
+  transform:translate(-50%,-50%);background:#e8f0dc;
+  box-shadow:0 0 5px 2px rgba(200,230,170,.85),0 0 16px 6px rgba(160,200,120,.35);
+  opacity:0;transition:opacity 4s ease 3s}
+.ghost-eyes[data-visit="4"] .eye,.ghost-eyes[data-visit="5"] .eye{
+  opacity:1;animation:eyepulse 5s ease-in-out infinite 7s}
+@keyframes eyepulse{0%,100%{opacity:1}50%{opacity:.55}}
+.gentle .ghost-eyes .eye{animation:none;transition-duration:6s}
+@media (prefers-reduced-motion:reduce){
+  .ghost-eyes .eye{animation:none;transition-duration:.01s}
+}
+
+/* phone */
+.stage{min-height:calc(100svh - 54px)}
+.scene{touch-action:none}   /* the flashlight follows a finger */
+
+@media (max-width:600px){
+  .stage{padding:1rem .75rem;gap:1.25rem}
+  .bar{flex-wrap:wrap;padding:8px 10px}
+  .start{padding:40px 18px}
+  .card{padding:18px 16px}
+  .slot,.tile{min-width:0;flex:1 1 calc(50% - 5px)}
+  .flash{background:radial-gradient(circle at var(--lx,50%) var(--ly,45%),
+    transparent 0,transparent 45px,rgba(0,0,0,.84) 150px)}
+  .e-ghost{max-width:100vw;object-fit:contain}
+}

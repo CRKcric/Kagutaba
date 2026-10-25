@@ -162,7 +162,7 @@ export default function App() {
         {screen === "ritual" && (
           <section>
             <h2>The ritual</h2>
-            <p className="hint">Drag each act into a slot, in the order you think is right.</p>
+            <p className="hint">Tap or drag each act into a slot, in the order you think is right.</p>
             <RitualPuzzle
               slots={state.ritualSlots}
               onPlace={(index, name) => dispatch({ type: "PLACE_TILE", index, name })}

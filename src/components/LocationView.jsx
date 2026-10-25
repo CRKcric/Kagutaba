@@ -83,7 +83,7 @@ export default function LocationView({ location, visits, muted, onDiscover, onCl
     <section className="location">
       <h2>{location.name}</h2>
 
-      <figure className="scene vhs-fx" data-loc={location.id} onPointerMove={light}>
+      <figure className="scene vhs-fx" data-loc={location.id} onPointerMove={light} onPointerDown={light}>
         <SceneBackground id={location.id} />
         <GhostFigure visits={visits[location.id]} />
         <div className="flash" aria-hidden="true" />
