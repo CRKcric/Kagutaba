@@ -58,9 +58,14 @@ button:focus-visible,input:focus-visible,[role=button]:focus-visible{outline:2px
 .scene[data-loc=house] .ghost{left:66%;bottom:17%}
 .scene[data-loc=archive] .ghost{left:14%;bottom:20%}
 .scene[data-loc=shrine] .ghost{left:50%;bottom:10%}
-.ghost[data-visit="2"]{--s:.28;--o:.32}
-.ghost[data-visit="3"]{--s:.62;--o:.62}
-.ghost[data-visit="4"]{--s:1.25;--o:.93;--eyes:#cfc6b0}
+.ghost[data-visit="2"]{--s:.35;--o:.32}
+.ghost[data-visit="3"]{--s:.95;--o:.62}
+.ghost[data-visit="4"]{--s:1.6;--o:.9}
+.ghost[data-visit="5"]{--s:2.8;--o:.95}
+/* visit 5: it drifts toward the middle and its feet leave the frame */
+.scene[data-loc=house] .ghost[data-visit="5"]{left:55%;bottom:2%}
+.scene[data-loc=archive] .ghost[data-visit="5"]{left:38%;bottom:2%}
+.scene[data-loc=shrine] .ghost[data-visit="5"]{left:48%;bottom:0}
 .gentle .ghost{transition-duration:6s}
 
 /* evidence card */

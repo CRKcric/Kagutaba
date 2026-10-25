@@ -102,6 +102,7 @@ export default function App() {
         <button aria-pressed={state.gentleMode} onClick={() => dispatch({ type: "TOGGLE_GENTLE" })}>
           {state.gentleMode ? "Gentle mode: on" : "Gentle mode: off"}
         </button>
+        <button onClick={() => document.fullscreenElement? document.exitFullscreen(): document.documentElement.requestFullscreen?.()}>Fullscreen</button>
       </div>
 
       <main className="stage" data-screen={screen}>
